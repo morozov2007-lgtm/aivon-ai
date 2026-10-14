@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#080a14">
+  <title>AIVON — AI Creation Studio</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#080a14;color:#f4f2ff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}button,input{font:inherit}
+    .app{max-width:760px;min-height:100dvh;margin:auto;padding:22px 18px 100px;background:radial-gradient(ellipse 260px 260px at 50% 120px,#33206675,transparent),#080a14}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:11px}.logo{width:44px;height:44px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(145deg,#c464fb,#644bff 60%,#25b6ff);font-size:26px;font-weight:900;box-shadow:0 5px 30px #8b5cf655}.brand b{font-size:23px;letter-spacing:3px}.brand small{display:block;margin-top:2px;color:#ada5d1;font-size:10px;letter-spacing:2px}.pill{border:1px solid #57477e;color:#bfb0ff;border-radius:20px;padding:7px 10px;font-size:11px}
+    .hero{text-align:center;padding:64px 12px 32px}.spark{font-size:46px;color:#b39cff;text-shadow:0 0 32px #a36dff}.hero h1{margin:14px 0 10px;font-size:clamp(24px,6vw,36px);letter-spacing:-.6px}.hero p{color:#aaaac1;line-height:1.5;font-size:14px;margin:0}
+    .actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.action{background:#131827;border:1px solid #29304a;border-radius:17px;padding:19px 14px;text-align:left;color:#fff;cursor:pointer;min-height:107px}.action:active{transform:scale(.98)}.action span{font-size:27px;display:block;margin-bottom:14px}.action b{font-size:14px}.action small{display:block;color:#929bb8;margin-top:5px;font-size:11px}
+    .chat{margin-top:28px}.section{font-weight:650;margin-bottom:14px}.messages{display:flex;flex-direction:column;gap:11px;max-height:300px;overflow:auto}.bubble{padding:13px 15px;border-radius:15px;line-height:1.5;font-size:13px;max-width:92%;overflow-wrap:anywhere;white-space:pre-wrap}.assistant{background:#171c2c;border:1px solid #292c43;align-self:flex-start}.user{background:linear-gradient(115deg,#6d4bda,#4934a9);align-self:flex-end}.inputbox{display:flex;align-items:center;gap:10px;margin-top:15px;background:#161b2c;border:1px solid #343653;border-radius:17px;padding:9px 9px 9px 15px}.inputbox input{width:100%;border:0;outline:0;background:transparent;color:#fff;min-width:0;font-size:14px}.send{background:#8958ee;color:white;border:0;border-radius:12px;padding:10px 14px;cursor:pointer}.hint{font-size:11px;color:#8c91ad;text-align:center;margin-top:12px;line-height:1.5}.preview{display:none;margin-top:22px;background:#14192a;border:1px solid #353a58;border-radius:18px;padding:13px}.preview.show{display:block}.preview h2{font-size:14px;margin:0 0 10px}.preview iframe{display:block;border:0;width:100%;height:250px;background:white;border-radius:10px}.preview button{margin-top:10px;border:1px solid #5d52a7;background:#251d4d;color:white;border-radius:10px;padding:9px 12px}
+    nav{position:fixed;bottom:0;left:0;right:0;max-width:760px;margin:auto;display:flex;justify-content:space-around;padding:13px 6px calc(13px + env(safe-area-inset-bottom));background:#0e1221ee;backdrop-filter:blur(14px);border-top:1px solid #28304a}nav span{text-align:center;font-size:11px;color:#a7a9bf}nav strong{display:block;font-size:19px;color:#a88bff;margin-bottom:3px}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header><div class="brand"><div class="logo">A</div><div><b>AIVON</b><small>AI CREATION STUDIO</small></div></div><div class="pill">● DEMO</div></header>
+    <div class="hero"><div class="spark">✦</div><h1>Что создадим сегодня?</h1><p>Твой будущий ИИ-помощник для идей,<br>сайтов и приложений</p></div>
+    <div class="actions">
+      <button class="action" onclick="createSite()"><span>🌐</span><b>Создать сайт</b><small>Открыть демо-пример</small></button>
+      <button class="action" onclick="say('Режим создания приложений добавим на следующем этапе.')"><span>📱</span><b>Приложения</b><small>Скоро</small></button>
+      <button class="action" onclick="say('Позже подключим ИИ для написания и исправления кода.')"><span>⌘</span><b>Написать код</b><small>Скоро</small></button>
+      <button class="action" onclick="say('Работу с изображениями, голосом и файлами добавим позже.')"><span>✦</span><b>Инструменты</b><small>Голос, файлы, фото</small></button>
+    </div>
+    <section class="chat"><div class="section">Чат с AIVON</div><div id="messages" class="messages"><div class="bubble assistant">Привет! Я первая демоверсия AIVON. Нажми «Создать сайт», чтобы увидеть пример. Настоящую нейросеть мы подключим позже.</div></div>
+      <form class="inputbox" id="form"><input id="prompt" autocomplete="off" placeholder="Напиши сообщение..." aria-label="Сообщение"><button class="send" aria-label="Отправить">➤</button></form>
+      <div class="hint">Пока это интерфейс с демонстрационными ответами, не настоящий ИИ.</div>
+    </section>
+    <section id="preview" class="preview"><h2>Предпросмотр демо-сайта</h2><iframe id="frame" title="Предпросмотр" sandbox=""></iframe><button onclick="document.getElementById('preview').classList.remove('show')">Закрыть предпросмотр</button></section>
+  </main>
+  <nav><span><strong>⌂</strong>Главная</span><span><strong>▤</strong>Проекты</span><span><strong>✦</strong>ИИ</span><span><strong>☷</strong>История</span></nav>
+  <script>
+    const messages=document.getElementById('messages');
+    function bubble(message,kind){const el=document.createElement('div');el.className='bubble '+kind;el.textContent=message;messages.appendChild(el);messages.scrollTop=messages.scrollHeight;}
+    function say(message){bubble(message,'assistant');}
+    document.getElementById('form').addEventListener('submit',function(event){event.preventDefault();const input=document.getElementById('prompt');const text=input.value.trim();if(!text)return;bubble(text,'user');input.value='';say('Сообщение получено! Это пока демонстрация. Скоро здесь будут настоящие ответы ИИ. Попробуй кнопку «Создать сайт».');});
+    function createSite(){
+      bubble('Создай красивый сайт кофейни','user');say('Вот пример сайта. Сейчас он создан из готового шаблона, не нейросетью.');
+      const page='<!doctype html><html lang="ru"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><body style="margin:0;font-family:Arial;text-align:center;background:#201a18;color:white;padding:30px 15px"><div style="font-size:45px">☕</div><h1>MOON COFFEE</h1><p>Кофе, который вдохновляет</p><div style="background:#d7a57a;color:#25150b;border-radius:14px;padding:15px;margin-top:20px">Капучино · Латте · Десерты</div><p style="margin-top:35px;font-size:12px">Демонстрационный сайт AIVON</p></body></html>';
+      document.getElementById('frame').srcdoc=page;document.getElementById('preview').classList.add('show');document.getElementById('preview').scrollIntoView({behavior:'smooth',block:'start'});
+    }
+  </script>
+</body>
+</html>
